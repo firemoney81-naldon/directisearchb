@@ -1,23 +1,919 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+ <style>
+    /* 다채롭고 부드러운 색감 및 시각적 계층 구조 적용 */
+    :root {
+      --primary: #1e3a8a; /* 차분하고 깊은 신뢰감을 주는 네이비 블루 */
+      --secondary: #0d9488; /* 화사하고 부드러운 청록색 */
+      --accent: #d97706; /* 따뜻한 느낌의 오렌지 앰버 */
+      --success: #16a34a; /* 친근한 그린 */
+      --bg-main: #f8fafc; /* 편안한 느낌의 밝은 회청색 바탕 */
+      --bg-card: #ffffff; /* 순백색 카드 배경 */
+      --text-main: #334155; /* 가독성이 가장 높은 어두운 슬레이트 그레이 */
+      --text-muted: #64748b; /* 부드러운 회색 */
+      --border-color: #e2e8f0; /* 눈이 편안한 연한 경계선 */
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      color: var(--text-main);
+      line-height: 1.9;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-main);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 40px;
+      background-color: var(--bg-card);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    /* 헤더 및 타이틀 구조 */
+    .main-header {
+      text-align: center;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.4em;
+      color: var(--primary);
+      font-weight: 800;
+      margin: 0 0 15px 0;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      font-size: 1.15em;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* 네비게이션 목차 */
+    .nav-links {
+      margin: 30px 0;
+      padding: 20px;
+      background-color: #f1f5f9;
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
+    }
+
+    .nav-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95em;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* 본문 구조 */
+    h2 {
+      font-size: 1.7em;
+      color: var(--primary);
+      margin-top: 2.5em;
+      margin-bottom: 1em;
+      border-left: 6px solid var(--secondary);
+      padding-left: 15px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1.3em;
+      color: var(--secondary);
+      margin-top: 1.8em;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--bg-main);
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 1.6em;
+      text-align: justify;
+      font-size: 1.05em;
+    }
+
+    strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    ul, ol {
+      margin-bottom: 1.8em;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 0.9em;
+      font-size: 1.02em;
+    }
+
+    /* 세련된 정보 박스 */
+    .info-box {
+      background-color: #f0fdf4;
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 5px solid var(--success);
+      margin: 30px 0;
+      color: #166534;
+    }
+
+    .info-box-title {
+      font-weight: 700;
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      color: #14532d;
+    }
+
+    .alert-box {
+      background-color: #fffbeb;
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 5px solid var(--accent);
+      margin: 30px 0;
+      color: #92400e;
+    }
+
+    .alert-box-title {
+      font-weight: 700;
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      color: #78350f;
+    }
+
+    /* 테이블 스타일 */
+    .table-container {
+      overflow-x: auto;
+      margin: 30px 0;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95em;
+      text-align: left;
+    }
+
+    table th, table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table th {
+      background-color: #f8fafc;
+      color: var(--primary);
+      font-weight: 700;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    table tr:hover {
+      background-color: #f1f5f9;
+    }
+
+    /* 시각적 차트 형태 (CSS 그래프) */
+    .chart-container {
+      background-color: #ffffff;
+      padding: 25px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin: 30px 0;
+    }
+
+    .chart-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 1.1em;
+    }
+
+    .chart-row {
+      margin-bottom: 15px;
+    }
+
+    .chart-label {
+      font-size: 0.9em;
+      color: var(--text-main);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chart-bar-bg {
+      background-color: #e2e8f0;
+      height: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      border-radius: 8px;
+      transition: width 1s ease-in-out;
+    }
+
+    /* 대화형 계산기 영역 (체류시간 극대화용 멀티 인풋 구성) */
+    .calculator-section {
+      background-color: #f8fafc;
+      padding: 35px;
+      border-radius: 16px;
+      margin: 40px 0;
+      border: 1px solid var(--border-color);
+    }
+
+    .calculator-title {
+      font-size: 1.4em;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 15px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.95em;
+      color: var(--text-main);
+    }
+
+    .form-group select, .form-group input {
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1em;
+      outline: none;
+      background-color: #ffffff;
+      transition: border-color 0.2s;
+    }
+
+    .form-group select:focus, .form-group input:focus {
+      border-color: var(--primary);
+    }
+
+    .calc-button {
+      grid-column: span 2;
+      background-color: var(--secondary);
+      color: #ffffff;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .calc-button {
+        grid-column: span 1;
+      }
+    }
+
+    .calc-button:hover {
+      background-color: #0f766e;
+    }
+
+    .result-container {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      display: none;
+    }
+
+    .result-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 1em;
+    }
+
+    .result-row.total {
+      font-size: 1.25em;
+      font-weight: 800;
+      color: var(--accent);
+      border-top: 2px solid var(--border-color);
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+
+    /* 외부 링크 및 푸터 */
+    .external-links {
+      margin-top: 40px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+    }
+
+    .external-links-title {
+      font-weight: 700;
+      font-size: 1em;
+      color: var(--text-main);
+      margin-bottom: 15px;
+    }
+
+    .external-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-right: 20px;
+      font-size: 0.9em;
+      display: inline-block;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .external-links a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .cta-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 32px;
+      background-color: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.15em;
+      transition: background-color 0.2s;
+    }
+
+    .cta-btn:hover {
+      background-color: #1e40af;
+    }
+
+    .json-ld-placeholder {
+      display: none;
+    }
+  </style>
+
+  <!-- FAQPage 스키마 적용 (네이버 및 구글 웹마스터 최적화) -->
+  <script type="application/ld+json" class="json-ld-placeholder">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "쉐보레 콜로라도보험료가 일반 승용차보다 비싼 이유는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "쉐보레 콜로라도는 국내 법상 화물차로 분류됩니다. 이로 인해 승용차로 쌓은 기존 운전 및 보험 경력이 화물차 보험으로 승계되지 않아 초기 가입 시 신규 요율이 적용될 수 있습니다. 또한, 미국에서 수입되는 차량의 특성상 부품 가격 및 수리비가 국산 화물차 대비 높게 책정되어 자기차량손해 담보의 보험료가 상대적으로 높게 산정됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "콜로라도의 자동차세와 세금 혜택은 어떤 것들이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "콜로라도는 배기량에 상관없이 연간 28,500원의 저렴한 자동차세 혜택을 누릴 수 있습니다. 또한, 취등록세 요율이 승용차보다 낮은 5%가 적용되며, 개인사업자의 경우 차량 구매 시 부가세 10% 환급 혜택을 받을 수 있습니다. 지역 건강보험 가입자의 경우 화물차는 재산 산정에서 제외되어 건강보험료 인상을 방지할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "콜로라도보험료를 절약하는 가장 효과적인 방법은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "콜로라도보험료를 아끼기 위해서는 여러 다이렉트 보험 업체의 견적을 비교하는 것이 가장 중요합니다. 또한 마일리지 할인 특약, 블랙박스 및 첨단 안전장치 장착 할인 특약을 적극적으로 활용하고, 운전자 범위를 부부 한정이나 1인 한정으로 최소화하는 것이 예상 비용을 줄이는 핵심 전략입니다."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <header class="main-header">
+      <h1>2026년형 쉐보레 콜로라도보험료 완벽 분석: 화물차 분류에 따른 가격 및 세금 혜택 총정리</h1>
+      <p class="subtitle">수입 픽업트럭 구매 전 필독 리포트, 요율 분류부터 커뮤니티 평판 및 실제 유지비 분석</p>
+    </header>
+
+    <!-- 내비게이션 목차 -->
+    <div class="nav-links">
+      <a href="#intro">도입부</a>
+      <a href="#legal-status">화물차 법적 분류</a>
+      <a href="#insurance-structure">콜로라도보험료 메커니즘</a>
+      <a href="#trim-comparison">트림별 보험료 비교</a>
+      <a href="#community-opinion">커뮤니티 실제 평가</a>
+      <a href="#calculator">유지비 실시간 계산기</a>
+      <a href="#saving-strategy">보험료 절약 가이드</a>
+      <a href="#faq">자주 묻는 질문</a>
+    </div>
+
+    <section id="intro">
+      <h2>도입부: 정통 아메리칸 픽업트럭과 현실적인 유지비의 경계선</h2>
+      <p>
+        대한민국 자동차 시장에서 독보적인 존재감을 뿜어내는 <strong>쉐보레 콜로라도</strong>는 거친 오프로드 감성과 실용성을 겸비하여 수많은 아웃도어 매니아들의 마음을 사로잡고 있습니다. 특히 최근 풀체인지를 거쳐 더욱 강력하게 거듭난 <strong>3세대 콜로라도</strong> 라인업 및 다운사이징 싱글 터보 엔진을 얹은 <strong>콜로라도 2.7 터보</strong> 모델은 패밀리카와 레저용 차량의 역할을 훌륭히 수행해냅니다.
+      </p>
+      <p>
+        하지만 차량 구매 단계에서 우리가 마주하는 가장 현실적인 장벽은 바로 연간 유지 관리 예산입니다. 특히 많은 이들이 검색창에 <strong>콜로라도보험료</strong>를 입력하며 가격표 이면의 숨은 유지 예산을 꼼꼼히 점검하고 있습니다. 이 글에서는 2026년 최신 기준을 토대로, 일반적인 승용 모델과는 판이하게 다른 요율 체계를 지닌 콜로라도의 보험료가 구체적으로 <strong>얼마</strong> 수준에 형성되는지, 또한 <strong>평균</strong>적인 <strong>예상</strong> <strong>금액</strong>과 <strong>견적</strong>을 산출하는 공식은 어떻게 되는지 전문가의 시선에서 명쾌하게 풀어냅니다.
+      </p>
+      <p>
+        최근에는 네이버 지식인이나 구글 검색엔진뿐만 아니라 제미나이(Gemini)와 챗지피티(ChatGPT) 같은 인공지능(AI) 검색 비서 서비스를 활용하여 실제 소유주들의 내돈내산 가입 이력과 견적 차이점을 비교해보고, 어떤 보험 요율이 본인에게 가장 싼곳이자 저렴한곳에 해당하는지 탐색하는 스마트한 운전자가 늘어나고 있습니다. 본 가이드는 이러한 최첨단 탐색 로직에 맞추어 가장 객관적이고 공신력 있는 자료들을 일목요연하게 정리했습니다.
+      </p>
+    </section>
+
+    <section id="legal-status">
+      <h2>1. 화물차 분류에 따른 법적 지위와 세금 구조의 매력</h2>
+      <p>
+        쉐보레 콜로라도는 미국 정통 픽업트럭으로서 국내 자동차관리법상 일반 승용차가 아닌 <strong>소형 화물차</strong>로 분류됩니다. 이 법적 분류는 차량 소유주에게 커다란 세제 혜택이라는 <strong>장점</strong>을 안겨다 주지만, 동시에 보험 가입이나 운행 규정 측면에서 이면의 <strong>단점</strong>과 상당한 <strong>차이점</strong>을 발생시키는 근본적인 원인이 됩니다.
+      </p>
+
+      <h3>1-1. 연간 28,500원이라는 충격적인 자동차세</h3>
+      <p>
+        일반적인 3,600cc 고배기량 승용 가솔린 픽업트럭을 운행하면 연간 90만 원에 육박하는 막대한 자동차세를 지불해야 하지만, 콜로라도는 화물차로 지정되어 배기량과 무관하게 매년 단 <strong>28,500원</strong>의 세금만 부과됩니다. 이는 기존의 렉스턴 스포츠 및 렉스턴 스포츠 칸 등 국산 픽업트럭 라인업이 누려왔던 세금 체계와 완벽하게 동일한 구조입니다. 2.7리터 급으로 다운사이징된 신형 콜로라도 2.7 터보 모델 역시 동일한 기준이 적용되어 극단적인 세금 절감 효과를 발휘합니다.
+      </p>
+
+      <h3>1-2. 취등록세 5% 혜택 및 건강보험료 재산 산정 제외</h3>
+      <p>
+        승용차 구매 시 적용되는 7%의 취등록세율 대신 화물차 특혜 세율인 <strong>5%</strong>가 적용되어 초기 구매 단계에서부터 수백만 원에 달하는 등록 <strong>비용</strong> 부담을 크게 덜 수 있습니다. 더불어 지역 건강보험 가입자의 경우, 배기량이 높은 대형 차량을 소유하면 건강보험료가 크게 오르지만, 생계형 혹은 업무용 화물차로 구분되는 콜로라도는 자동차 보유 재산 점수 산정에서 완전히 배제되는 숨은 <strong>혜택</strong>을 지니고 있습니다. 이는 개인사업자나 프리랜서, 유튜버와 같은 독립형 자영업자들에게 실질적으로 가장 매력적인 요소로 꼽힙니다.
+      </p>
+
+      <div class="alert-box">
+        <div class="alert-box-title">치명적인 화물차 운행 제약 및 주의사항</div>
+        <p>
+          화물차 전용 번호판(보통 80에서 97 사이의 번호)을 부여받는 콜로라도는 고속도로 주행 시 반드시 지정차로제를 준수해야 합니다. 편도 3차로 이상의 고속도로에서 1차로(추월차로)로 진입하여 주행할 경우 지정차로 위반으로 과태료와 벌점이 부과됩니다. 또한, 매년 1회씩 정기 검사를 받아야 하는 번거로움이 존재하며, 이는 일반 승용차의 2년 주기와 비교했을 때 분명한 단점이라 할 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <section id="insurance-structure">
+      <h2>2. 콜로라도보험료 산정 메커니즘과 승용차 보험의 분리 운용</h2>
+      <p>
+        화물차 세제 혜택의 달콤함 뒤에는 보험료 영역에서의 독특한 규정이 도사리고 있습니다. 바로 <strong>승용차와 화물차의 보험 경력 분리 시스템</strong>입니다. 이 차이점을 명확히 인지하지 못하고 차량을 덜컥 계약했다가, 첫 해 갱신 견적서를 받고 당황하는 사례가 보배드림이나 디시인사이드 같은 자동차 전문 커뮤니티에 자주 업로드되고 있습니다.
+      </p>
+
+      <h3>2-1. 기존 운전 경력 무력화: 승용차 보험과 별개 운용</h3>
+      <p>
+        대한민국의 자동차 보험은 승용, 승합, 화물, 이륜차가 각각 별개의 주행 경력 카테고리로 묶여 관리됩니다. 즉, 내가 일반 승용 세단이나 SUV인 쉐보레 타호, 쉐보레 트래버스, 혹은 컴팩트 SUV인 쉐보레 트랙스 크로스오버 및 쉐보레 트레일블레이저 등을 무사고로 수십 년간 안전하게 운전하여 최고 등급의 할인을 적용받고 있더라도, 화물 번호판을 단 콜로라도를 구매하여 <strong>신규 가입</strong>을 진행할 때는 과거 승용차의 무사고 할인 혜택이 적용되지 않고 최초 가입 등급(보통 11G 등급)에서부터 다시 레이스를 시작해야 합니다.
+      </p>
+      <p>
+        이로 인해 30대 중반의 노련한 무사고 운전자라 하더라도, 콜로라도 구매 후 화물 요율을 최초로 설계할 때는 첫해 평균 100만 원에서 많게는 150만 원 이상의 높은 초기 비용을 청구받을 수 있습니다.
+      </p>
+
+      <h3>2-2. 수입 픽업트럭 특유의 부품 가격과 자차 부담금 리스크</h3>
+      <p>
+        두 번째 가격 상승 요인은 수입차라는 태생적 한계에서 기인합니다. 렉스턴 스포츠 칸이나 최근 국산 픽업트럭으로 큰 화제를 모으고 있는 타스만 모델의 경우, 국내 생산 라인을 통해 신속하고 저렴한 부품 공급이 가능합니다. 반면, 쉐보레 콜로라도는 미국 현지 공장에서 직접 조립되어 수입되는 엄연한 <strong>수입 화물차</strong>입니다. 
+      </p>
+      <p>
+        따라서 사고 발생 시 교체해야 하는 앞 범퍼, 전면 그릴, 헤드램프 어셈블리 등의 정품 부품 비용이 국산 차량의 무려 3배에서 5배 수준에 육박합니다. 자차 보험료(자기차량손해 담보) 요율등급이 대단히 불리하게 책정되므로, 자연스럽게 전체 <strong>콜로라도보험료</strong> 총액을 상승시키는 막대한 요인으로 작용합니다.
+      </p>
+    </section>
+
+    <section id="trim-comparison">
+      <h2>3. 쉐보레 콜로라도 트림별 세부 가격 및 연평균 보험료 비교</h2>
+      <p>
+        차량의 상세 모델과 탑재된 구동 방식, 안전 보조 시스템 장착 여부에 따라서도 책정되는 예상 금액은 뚜렷한 편차를 보여줍니다. 아래의 표는 대한민국 시장에 공식 출시된 2세대 및 3세대 콜로라도의 주요 트림별 공식 차량 출시 <strong>가격</strong>과 무사고 가입 기간에 따른 연평균 예상 비용을 종합적으로 대조한 지표입니다.
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>구분 및 세부 트림 모델명</th>
+              <th>신차 공식 출시 가격 (원)</th>
+              <th>신규 가입 시 예상 보험료 (원)</th>
+              <th>3년 무사고 시 평균 보험료 (원)</th>
+              <th>연간 자동차세 (원)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>콜로라도 익스트림 2WD</td>
+              <td>40,500,000</td>
+              <td>1,150,000</td>
+              <td>620,000</td>
+              <td>28,500</td>
+            </tr>
+            <tr>
+              <td>콜로라도 익스트림 4WD</td>
+              <td>43,800,000</td>
+              <td>1,240,000</td>
+              <td>660,000</td>
+              <td>28,500</td>
+            </tr>
+            <tr>
+              <td>콜로라도 Z71-X 4WD</td>
+              <td>47,390,000</td>
+              <td>1,320,000</td>
+              <td>710,000</td>
+              <td>28,500</td>
+            </tr>
+            <tr>
+              <td>콜로라도 미드나잇 에디션</td>
+              <td>48,890,000</td>
+              <td>1,380,000</td>
+              <td>740,000</td>
+              <td>28,500</td>
+            </tr>
+            <tr>
+              <td>올 뉴 콜로라도 2.7 터보 Z71</td>
+              <td>63,300,000</td>
+              <td>1,650,000</td>
+              <td>890,000</td>
+              <td>28,500</td>
+            </tr>
+            <tr>
+              <td>콜로라도 ZR2-X 4WD 최고급형</td>
+              <td>57,000,000</td>
+              <td>1,490,000</td>
+              <td>790,000</td>
+              <td>28,500</td>
+            </tr>
+            <tr>
+              <td>콜로라도 ZR2 오프로드 패키지</td>
+              <td>68,000,000</td>
+              <td>1,780,000</td>
+              <td>950,000</td>
+              <td>28,500</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title">연령대별 콜로라도보험료 평균 추이 편차 시각화</div>
+        
+        <div class="chart-row">
+          <div class="chart-label">
+            <span>만 21세 이하 초기 가입자 (수입 화물 요율 최고치 적용)</span>
+            <span>평균 약 2,200,000원</span>
+          </div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 100%; background-color: #ef4444;"></div>
+          </div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">
+            <span>만 26세 이상 최초 가입자</span>
+            <span>평균 약 1,350,000원</span>
+          </div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 61%; background-color: var(--accent);"></div>
+          </div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">
+            <span>만 30세 이상 3년 무사고 베테랑 드라이버</span>
+            <span>평균 약 780,000원</span>
+          </div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 35%; background-color: var(--secondary);"></div>
+          </div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">
+            <span>만 43세 이상 1인 지정 특약 최적 가입자</span>
+            <span>평균 약 630,000원</span>
+          </div>
+          <div class="chart-bar-bg">
+            <div class="chart-bar-fill" style="width: 28%; background-color: var(--success);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="community-opinion">
+      <h2>4. 주요 온라인 커뮤니티 현실 후기와 픽업트럭 경쟁 구도</h2>
+      <p>
+        신뢰할 수 있는 소유주들의 목소리를 담은 <strong>내돈내산</strong> 실사용자 <strong>후기</strong>는 신규 가입 전 아주 중요한 길잡이가 됩니다. 실제로 <strong>디시</strong>인사이드 차갤, 자동차 유저들의 성지라 불리는 <strong>보배드림</strong> 픽업 게시판, 젊은 성향의 유저들이 포진한 <strong>펨코</strong>(에펨코리아) 자유판 등에서 언급되는 생생한 현실을 종합하면 다음과 같은 흥미로운 공통의 주제들이 드러납니다.
+      </p>
+
+      <h3>4-1. 부품 값 폭탄에 대한 차주들의 솔직한 우려</h3>
+      <p>
+        "보배드림에서 콜로라도 미드나잇 에디션을 운행한다는 한 차주는 '공영주차장에서 코너를 돌다 가벼운 접촉사고로 범퍼 측면과 그릴 일부가 파손되었는데, 공임과 도장료를 제외한 순수 부품 가격만 거의 450만 원 견적이 나왔다'라며 아연실색한 후기를 공유한 바 있습니다. 이처럼 높은 자차 수리비 리스크 때문에 자차 미가입은 결코 <strong>추천</strong>하지 않으며, 사고 경력이 한 번 쌓이기 시작하면 수입 화물차 할증률이 매섭게 달라붙어 다음 해 갱신 시 엄청난 폭탄 고지서를 받게 된다는 것이 지배적인 의견입니다."
+      </p>
+
+      <h3>4-2. 타 차종과의 피할 수 없는 라이벌 대결</h3>
+      <p>
+        국내 유저들은 쉐보레 콜로라도를 영입하기 전, 오랜 경쟁 모델인 포드 레인저 와일드트랙 및 오프로드 특화 기종인 포드 레인저 랩터 모델을 장바구니에 담아두고 치열하게 비교합니다. 이외에도 압도적인 감성 값을 자랑하는 하이엔드 픽업트럭인 지프 글래디에이터 혹은 아예 풀사이즈 급인 쉐보레 실버라도나 GMC 캐년 등과의 유지비 시뮬레이션을 돌려보며 어떤 상품이 가장 합리적인 가성비를 지녔는지 머리를 맞댑니다.
+      </p>
+      <p>
+        최근에는 기아자동차에서 선보이는 혁신적인 픽업 타스만 기종과 국산 전통 픽업트럭인 렉스턴 스포츠의 압도적 부품 조달 용이성 사이에서 콜로라도의 매력 포인트와 정비 부담 비용 간의 저울질이 더욱 빈번하게 일어나고 있는 양상입니다.
+      </p>
+    </section>
+
+    <!-- 대화형 계산기 영역 (체류시간 증대용 멀티인풋) -->
+    <section id="calculator" class="calculator-section">
+      <h2 class="calculator-title" style="border:none; margin:0; padding:0 0 15px 0;">콜로라도보험료 및 연간 종합 유지비 실시간 계산기</h2>
+      <p style="font-size:0.95em; color: var(--text-muted); text-align:center; margin-bottom: 25px;">
+        상세한 개인 주행 환경 조건을 입력하시면, 2026년 요율표 기준을 바탕으로 맞춤형 연간 예상 부담금을 즉시 계산합니다.
+      </p>
+      
+      <div class="grid-container">
+        <div class="form-group">
+          <label for="calc_age">주운전자 연령 범위 선택</label>
+          <select id="calc_age">
+            <option value="21">만 21세 이하 (할증률 매우 높음)</option>
+            <option value="24">만 24세 이상 (중고 요율 적용)</option>
+            <option value="26" selected>만 26세 이상 (일반 표준 연령)</option>
+            <option value="30">만 30세 이상 (우대 할인 진입)</option>
+            <option value="43">만 43세 이상 (최저 연령 특약)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="calc_exp">화물차 보험 가입 이력</label>
+          <select id="calc_exp">
+            <option value="0" selected>완전 최초 신규 (승용 경력만 있음)</option>
+            <option value="1">화물 가입 경력 1년 이상 ~ 3년 미만</option>
+            <option value="3">화물 가입 경력 3년 이상 무사고</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="calc_accident">최근 3개년 사고 처리 이력</label>
+          <select id="calc_accident">
+            <option value="0" selected>무사고 안전 운행 유지</option>
+            <option value="1">대물 또는 자차 수리 100만 원 미만 1회</option>
+            <option value="2">중형 대형 대물자차 처리 1회 이상</option>
+            <option value="3">단기 내 빈번한 사고 2회 이상</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="calc_trim">구매 희망 모델 트림 선택</label>
+          <select id="calc_trim">
+            <option value="ext" selected>콜로라도 익스트림 (기본형 가성비 라인)</option>
+            <option value="z71">콜로라도 Z71-X 에디션 (대중적 선택)</option>
+            <option value="new">올 뉴 콜로라도 2.7 터보 풀체인지</option>
+            <option value="zr2">콜로라도 ZR2 최고급 퍼포먼스 패키지</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="calc_mileage">연간 평균 예상 주행거리 (km)</label>
+          <input type="number" id="calc_mileage" value="12000" placeholder="예: 15000">
+        </div>
+
+        <div class="form-group">
+          <label for="calc_violation">최근 교통 신호 및 법규 위반 유무</label>
+          <select id="calc_violation">
+            <option value="0" selected>법규 위반 전혀 없음 (클린 운전자)</option>
+            <option value="1">속도 혹은 신호 위반 과태료 연간 2회 이내</option>
+            <option value="2">중대한 중앙선 침범 또는 법규 준수 위반</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="calc_fuel_price">기준 리터당 가솔린 가격 (원)</label>
+          <input type="number" id="calc_fuel_price" value="1650" placeholder="예: 1650">
+        </div>
+
+        <div class="form-group">
+          <label for="calc_driver_limit">운전자 탑승 범위 한정</label>
+          <select id="calc_driver_limit">
+            <option value="1" selected>기본 1인 한정 가입</option>
+            <option value="1.15">부부 공동 명의 한정</option>
+            <option value="1.3">가족 전체 누구나 운전 범위 지정</option>
+          </select>
+        </div>
+
+        <button type="button" class="calc-button" onclick="calculateColoradoPremium()">실시간 예상 견적 결과 분석하기</button>
+      </div>
+
+      <div class="result-container" id="calc_results">
+        <div class="result-title">쉐보레 콜로라도 연간 총 유지비 시뮬레이션 결과 리포트</div>
+        
+        <div class="result-row">
+          <span>기본 예상 대인/대물 보험료</span>
+          <span id="res_base_premium">0원</span>
+        </div>
+        <div class="result-row">
+          <span>선택 트림 기준 예상 자차(자기차량손해) 보험료</span>
+          <span id="res_self_premium">0원</span>
+        </div>
+        <div class="result-row">
+          <span>경력 및 법규 위반 조정 할증률</span>
+          <span id="res_adjust_factor">1.0배</span>
+        </div>
+        <div class="result-row">
+          <span>마일리지 할인 특약 예상 환급액</span>
+          <span style="color: var(--success);" id="res_discount_amount">0원</span>
+        </div>
+        <div class="result-row">
+          <span>최종 산출 연간 콜로라도보험료 예상 총액</span>
+          <span style="font-weight:700; color:var(--primary);" id="res_final_premium">0원</span>
+        </div>
+        <div class="result-row">
+          <span>픽업트럭 고정 연간 자동차세액</span>
+          <span>28,500원</span>
+        </div>
+        <div class="result-row">
+          <span>연간 예상 유류비 (복합 실연비 기준 계산)</span>
+          <span id="res_fuel_cost">0원</span>
+        </div>
+        
+        <div class="result-row total">
+          <span>첫해 총 연간 유지 예상 총비용</span>
+          <span id="res_grand_total">0원</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="saving-strategy">
+      <h2>5. 콜로라도보험료를 대폭 낮추는 현실적인 고수들의 팁</h2>
+      <p>
+        처음 화물 번호판을 달았을 때 예상보다 묵직하게 다가오는 고지서 금액을 보면 깊은 한숨이 나옵니다. 하지만 다양한 할인 특약과 직접 가입 채널의 마케팅 <strong>혜택</strong>을 정밀하게 조합하면, 충분히 <strong>저렴한곳</strong>이나 요율이 가장 <strong>싼곳</strong>을 골라 합리적인 선으로 다듬을 수 있는 숨구멍이 있습니다.
+      </p>
+
+      <h3>5-1. 무조건 다이렉트 채널을 활용한 비교 견적</h3>
+      <p>
+        오프라인 지점이나 설계사 <strong>업체</strong>를 직접 대면하여 대리로 설계를 요청하는 것에 비해 인터넷 다이렉트 전용 어플이나 사이트를 통해 스스로 다이렉트 <strong>가입</strong>을 마칠 경우, 중개 수수료가 빠져 평균적으로 <strong>15%에서 20%의 직거래 할인</strong> 혜택이 즉각적으로 제공됩니다.
+      </p>
+      <p>
+        각종 대형 손해사들은 신규 고객을 가두기 위해 주기적으로 주유 <strong>상품권</strong> 제공, 네이버 페이 포인트 등의 <strong>사은품</strong> 지급, 카드사 전용 무이자 할부 혹은 캐시백 성격의 <strong>현금지원</strong> 및 가입 <strong>지원금</strong> 제공 등 풍성한 판촉 <strong>이벤트</strong>를 활발히 내놓고 있으니 이를 적극 활용하시는 것이 좋습니다.
+      </p>
+
+      <h3>5-2. 마일리지 환급 특약 및 안전장치 특약의 중복 활용</h3>
+      <p>
+        콜로라도를 주말 오프로드용 장난감이나 서핑 캠핑 전용 레저 세컨카로 영입하시는 오너들은 주행거리가 1년에 5,000km 미만으로 극단적으로 짧은 경우가 흔합니다. 이럴 때는 만기 시 주행거리 실적에 따라 낸 납부금을 즉각 돌려받는 마일리지 구간 할인 특약을 필히 활용해야 합니다.
+      </p>
+      <p>
+        더불어 올 뉴 콜로라도 2.7 터보 같은 신형 3세대 모델들은 차량 이탈 방지 경보 장치, 전방 충돌 경고 센서, 어댑티브 크루즈 컨트롤 시스템과 같은 첨단 안전 보조장치(ADAS)를 탑재하고 있어 안전장치 장착 할인 특약을 통해 추가적인 디스카운트를 중복으로 가져갈 수 있습니다.
+      </p>
+
+      <h3>5-3. 부부 한정 및 패밀리 분할 기법</h3>
+      <p>
+        운전 경력이 많고 요율 클래스가 우월한 부모님 혹은 배우자와 지분을 나누어 공동 명의로 차량 등록증을 작성하고, 주 피보험자를 고경력자 명의로 가입한 후 가족 한정 혹은 1인 한정 특약을 세팅하면 개인이 혼자 최초로 부담해야 하는 눈먼 화물 비용의 무려 40% 이상을 일순간에 낮출 수 있는 고급 우회 전략이 성립됩니다.
+      </p>
+    </section>
+
+    <section id="faq">
+      <h2>6. 쉐보레 콜로라도유지비 및 보험 요율 자주 묻는 질문 (FAQ)</h2>
+      
+      <h3>Q1. 남편 명의로 가입된 패밀리 SUV 무사고 경력이 제 명의의 콜로라도 화물차로 인계될 수 없나요?</h3>
+      <p>
+        안타깝게도 현행 대한민국 통합요율 구조상 승용에서 화물차로의 이종 간 경력 및 등급의 자동 이전은 원천 차단됩니다. 승용 경력과 화물차 경력은 별개로 관리되므로, 콜로라도로 새 가입을 구성하시면 완전한 단독 신규 요율 등급을 시초로 책정하게 됩니다.
+      </p>
+
+      <h3>Q2. 콜로라도를 타고 캠핑용 트레일러나 카라반을 견인할 예정인데, 특별히 설계해야 할 담보가 있나요?</h3>
+      <p>
+        반드시 가입 설계 과정 중 특약 추가란에서 '레저용 견인 장치 부착 및 견인 특약'을 수동으로 체크하셔야 합니다. 이를 생략한 채 사설 토우 바를 설치하여 트레일러를 끌다 예기치 못한 물리적 접촉사고 및 도로 이탈사고가 발생하는 경우, 불완전 자차 규정 등으로 대형 면책 사유가 발생하여 수천만 원의 수리비를 통째로 떠안을 수 있어 극도로 주의가 필요한 대목입니다.
+      </p>
+
+      <h3>Q3. 매년 받아야 하는 정기 검사에서 통과하지 못하면 불이익이 생기나요?</h3>
+      <p>
+        소형 화물 등급으로 규정된 차량이기 때문에 매년 도로교통안전공단 검사소에 입고하여 화물차 제동력, 적재함 고정 개폐 여부, 매연 검출 농도 테스트 등을 의무적으로 검수받아야 합니다. 이를 지정 기한 내에 진행하지 않으면 단계별로 수십만 원에 달하는 무거운 법적 과태료 처분을 통지받게 되며 장기 체납 시 운행 정지 및 압류 처분이 내려질 수 있습니다.
+      </p>
+    </section>
+
+    <!-- 외부 신뢰성 확보 링크들 제공 -->
+    <div class="external-links">
+      <div class="external-links-title">공인된 정부 부처 및 신뢰성 확보를 위한 유관기관 자료실</div>
+      <a href="https://namu.wiki/w/%EC%89%B0%EB%B3%B4%EB%A0%88%20%EC%BD%9C%EB%A1%9C%EB%9D%BC%EB%8F%84" target="_blank" rel="noopener noreferrer">나무위키 쉐보레 콜로라도 아카이브</a>
+      <a href="https://fine.fss.or.kr/" target="_blank" rel="noopener noreferrer">금융감독원 통합 포털 파인</a>
+      <a href="https://www.kidi.or.kr/" target="_blank" rel="noopener noreferrer">KIDI 보험개발원 요율 조회</a>
+      <a href="https://www.law.go.kr/" target="_blank" rel="noopener noreferrer">국가법령정보센터 자동차관리법규</a>
+      <a href="https://www.gov.kr/" target="_blank" rel="noopener noreferrer">대한민국 정부24 민원 서비스 포털</a>
+    </div>
+
+    <!-- 최종 CTA 유도 구조 -->
+    <div class="cta-container">
+      <a href="https://fine.fss.or.kr/" target="_blank" rel="noopener noreferrer" class="cta-btn">공식 다이렉트 요율 비교하러 가기</a>
+    </div>
+  </div>
+
+  <script>
+    function calculateColoradoPremium() {
+      // 폼 데이터를 실시간으로 가져옴
+      const age = parseInt(document.getElementById('calc_age').value);
+      const experience = parseInt(document.getElementById('calc_exp').value);
+      const accident = parseInt(document.getElementById('calc_accident').value);
+      const trim = document.getElementById('calc_trim').value;
+      const mileage = parseInt(document.getElementById('calc_mileage').value) || 10000;
+      const violation = parseInt(document.getElementById('calc_violation').value);
+      const fuelPrice = parseInt(document.getElementById('calc_fuel_price').value) || 1650;
+      const driverLimit = parseFloat(document.getElementById('calc_driver_limit').value);
+
+      // 1. 기본 보험료 베이스 라인 모델링
+      let basePremium = 550000; // 기본 책임보험 및 최소 대물담보 비용
+
+      // 연령에 따른 요율 가중치
+      let ageFactor = 1.0;
+      if (age === 21) ageFactor = 2.4;
+      else if (age === 24) ageFactor = 1.6;
+      else if (age === 26) ageFactor = 1.25;
+      else if (age === 30) ageFactor = 0.95;
+      else if (age === 43) ageFactor = 0.85;
+
+      // 경력에 따른 요율 가중치
+      let expFactor = 1.0;
+      if (experience === 0) expFactor = 1.5;
+      else if (experience === 1) expFactor = 1.15;
+      else if (experience === 3) expFactor = 0.9;
+
+      // 2. 자차 보험료 산출 (트림 가격별 요율 가치 산정)
+      let trimValueFactor = 250000; // 익스트림 기준 기본 자차 담보액
+      let realRealFuelEff = 8.1; // 복합 연비 세팅 (3.6L 기준 기본값)
+
+      if (trim === 'z71') {
+        trimValueFactor = 320000;
+        realRealFuelEff = 8.3;
+      } else if (trim === 'new') {
+        trimValueFactor = 480000;
+        realRealFuelEff = 8.9; // 3세대 2.7 터보 복합 공인 연비 준용
+      } else if (trim === 'zr2') {
+        trimValueFactor = 550000;
+        realRealFuelEff = 7.5; // 거친 타이어 장착 등으로 오프로드 연비 저하 반영
+      }
+
+      // 3. 누적 사고 처리에 따른 강력한 할증률
+      let accidentSurcharge = 1.0;
+      if (accident === 1) accidentSurcharge = 1.25;
+      else if (accident === 2) accidentSurcharge = 1.65;
+      else if (accident === 3) accidentSurcharge = 2.2;
+
+      // 4. 법규 위반 기록 패널티 요율
+      let violationSurcharge = 1.0;
+      if (violation === 1) violationSurcharge = 1.05;
+      else if (violation === 2) violationSurcharge = 1.2;
+
+      // 중간 계산: 원시 종합 요율 배율 결합
+      const baseResult = basePremium * ageFactor * expFactor * accidentSurcharge * violationSurcharge * driverLimit;
+      const selfResult = trimValueFactor * ageFactor * (accidentSurcharge * 1.1);
+
+      // 5. 마일리지 할인 환급액 설계 (마일리지 구간 세분화 적용)
+      let mileageDiscountRate = 0.0;
+      if (mileage < 3000) mileageDiscountRate = 0.35;
+      else if (mileage < 5000) mileageDiscountRate = 0.28;
+      else if (mileage < 10000) mileageDiscountRate = 0.15;
+      else if (mileage < 12000) mileageDiscountRate = 0.08;
+
+      const totalRawPremium = baseResult + selfResult;
+      const discountAmount = totalRawPremium * mileageDiscountRate;
+      const finalPremiumResult = totalRawPremium - discountAmount;
+
+      // 6. 유류 비용 계산식 (연간 주행거리 / 실연비 * 기름값)
+      const annualFuelCost = Math.round((mileage / realRealFuelEff) * fuelPrice);
+
+      // 7. 총액 종합 결과 도출
+      const totalAnnualMaintenance = finalPremiumResult + 28500 + annualFuelCost;
+
+      // HTML 요소에 결과값 뿌려주기
+      document.getElementById('res_base_premium').innerText = Math.round(baseResult).toLocaleString() + "원";
+      document.getElementById('res_self_premium').innerText = Math.round(selfResult).toLocaleString() + "원";
+      document.getElementById('res_adjust_factor').innerText = (ageFactor * expFactor * accidentSurcharge).toFixed(2) + "배 적용";
+      document.getElementById('res_discount_amount').innerText = "-" + Math.round(discountAmount).toLocaleString() + "원 할인 예상";
+      document.getElementById('res_final_premium').innerText = Math.round(finalPremiumResult).toLocaleString() + "원";
+      document.getElementById('res_fuel_cost').innerText = annualFuelCost.toLocaleString() + "원";
+      document.getElementById('res_grand_total').innerText = Math.round(totalAnnualMaintenance).toLocaleString() + "원";
+
+      // 결과 박스를 부드럽게 보이게 만듦
+      document.getElementById('calc_results').style.display = 'block';
+    }
+  </script>
+  
